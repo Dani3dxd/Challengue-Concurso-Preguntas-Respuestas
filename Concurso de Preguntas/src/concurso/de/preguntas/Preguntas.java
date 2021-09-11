@@ -5,10 +5,16 @@
  */
 package concurso.de.preguntas;
 
-/**
- *
- * @author SAT
- */
 public class Preguntas {
+    public String enunciado;
+    public String categoria;
     
+    Preguntas(String enunciado, String categoria){
+        this.enunciado =enunciado;
+        this.categoria =categoria;
+    }
+    @Override
+        public String toString(){
+            return enunciado+categoria;
+        }
 }
