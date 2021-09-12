@@ -9,19 +9,23 @@ import java.lang.Math;
  * @author Daniel Ortiz
  */
 public class ConcursoDePreguntas {
+    
     //Cambiar la ubicacion del archivo aqui dependiendo de donde se extraiga el programa
     public static String ubicacionArchivo = "C:\\Users\\SAT\\Desktop\\Challengue-Concurso-Preguntas-Respuestas\\preguntas.csv";
+    
     //Creacion de las diferentes clases para las preguntas
     public static ArrayList<Preguntas> questionsCG = new ArrayList();
     public static ArrayList<Preguntas> questionsBio = new ArrayList();
     public static ArrayList<Preguntas> questionsHist = new ArrayList();
     public static ArrayList<Preguntas> questionsMat = new ArrayList();
     public static ArrayList<Preguntas> questionsEn = new ArrayList();
+    
     //creacion de los arrays para la informacion del jugador y su puntaje
     private static ArrayList<String> Player= new ArrayList();
     private static ArrayList<Integer> Score = new ArrayList();
     private static ArrayList<String> pl= new ArrayList();
     private static ArrayList<Integer> sc = new ArrayList();
+    
     //Creación e inicialización de variables para salida del juego y el contador de las preguntas que inicia en 1 y debe llegar hasta 5
     public static int contadorPreguntas = 1;
     public static int puntaje = 0;

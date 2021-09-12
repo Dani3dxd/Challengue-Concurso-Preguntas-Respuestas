@@ -74,6 +74,7 @@ public class Preguntas {
         }
         return res;
     }
+    //funcion override para sobreescibir la funcion cuando se llama mediante el metodo get
     @Override
        public String toString(){
         return categoria+"\n\n   "+enunciado+"\n\ta. "+respuesta1+"\n\tb. "+respuesta2+"\n\tc. "+respuesta3+"\n\td. "+respuesta4;
