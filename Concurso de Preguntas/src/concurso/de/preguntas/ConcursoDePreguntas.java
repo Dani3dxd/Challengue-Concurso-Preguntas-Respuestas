@@ -46,10 +46,6 @@ public class ConcursoDePreguntas {
             e.printStackTrace();
         }
         
-        System.out.println("\tPuntajes");
-        for(int i=0;i<Player.size();i++){
-            System.out.println(Player.get(i)+"\t\t"+Score.get(i)+" pts.");
-        }
     }
     
     public static void escritorExcel(){
@@ -57,8 +53,8 @@ public class ConcursoDePreguntas {
         try{
             BufferedWriter bw =new BufferedWriter (new FileWriter(ubicacionArchivo));
            
-            for(int i=0;i<pl.size();i++){
-                bw.write(pl.get(i)+","+sc.get(i));
+            for(int i=0;i<Player.size();i++){
+                bw.write(Player.get(i)+","+Score.get(i));
                 bw.newLine();
                 bw.flush();
             } 
@@ -202,6 +198,8 @@ public class ConcursoDePreguntas {
                 +          "máxima podrá ser hasta de 500 puntos y una vez falles con alguna pregunta terminara el juego y te quedaras con el puntaje que lleves hasta ese momento.\n¡buena suerte!, te espero en la cima.");
         System.out.println("Ahora si Comenzemos\n");
         cargarPreguntas();
+        //muestra en pantalla los nombres y puntajes de los diferentes jugadores
+        lectorExcel();
         //codigo para poder dejar el programa en un bucle hasta que el usuario decida terminar la sesion
         while(exit!=1){
             //se solicita el nombre al jugador y se recibe la informacion mediante la consola
@@ -233,15 +231,17 @@ public class ConcursoDePreguntas {
                 }
             }
             //codigo para asociar los puntajes en una base de datos local (ArrayList) y despues transferirlos al archivo excel
-            pl.add(nombreJugador);
-            sc.add(puntaje);
+            Player.add(nombreJugador);
+            Score.add(puntaje);
             //funciones finales para asociar los nombre con los puntajes en un archivo excel
             escritorExcel();
             pantallaSalida(resp); 
         }
-        //muestra en pantalla los nombres y puntajes de los diferentes jugadores
-        lectorExcel();
         
+        System.out.println("\tPuntajes");
+        for(int i=0;i<Player.size();i++){
+            System.out.println(Player.get(i)+"\t\t"+Score.get(i)+" pts.");
+        }
     }
     
 }
