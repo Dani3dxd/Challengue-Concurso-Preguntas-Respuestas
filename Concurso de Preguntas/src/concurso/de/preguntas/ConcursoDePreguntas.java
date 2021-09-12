@@ -1,10 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package concurso.de.preguntas;
-
+//impotacion de las librerias necesarias para el funcionamiento de la aplicacion 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,64 +9,74 @@ import java.lang.Math;
  * @author Daniel Ortiz
  */
 public class ConcursoDePreguntas {
+    //Cambiar la ubicacion del archivo aqui dependiendo de donde se extraiga el programa
+    public static String ubicacionArchivo = "C:\\Users\\SAT\\Desktop\\Challengue-Concurso-Preguntas-Respuestas\\preguntas.csv";
+    //Creacion de las diferentes clases para las preguntas
     public static ArrayList<Preguntas> questionsCG = new ArrayList();
     public static ArrayList<Preguntas> questionsBio = new ArrayList();
     public static ArrayList<Preguntas> questionsHist = new ArrayList();
     public static ArrayList<Preguntas> questionsMat = new ArrayList();
     public static ArrayList<Preguntas> questionsEn = new ArrayList();
-    
+    //creacion de los arrays para la informacion del jugador y su puntaje
     private static ArrayList<String> Player= new ArrayList();
     private static ArrayList<Integer> Score = new ArrayList();
-    
     private static ArrayList<String> pl= new ArrayList();
     private static ArrayList<Integer> sc = new ArrayList();
-    
+    //Creación e inicialización de variables para salida del juego y el contador de las preguntas que inicia en 1 y debe llegar hasta 5
     public static int contadorPreguntas = 1;
     public static int puntaje = 0;
     public static int exit = 2;
     
     public static void lectorExcel(){
-        
+        //funcion para el lector del documento en Excel donde se guarda el historico de los jugadores
         try{
-            BufferedReader reader = new BufferedReader (new FileReader("C:\\Users\\SAT\\Desktop\\Challengue-Concurso-Preguntas-Respuestas\\preguntas.csv"));
+            BufferedReader reader = new BufferedReader (new FileReader(ubicacionArchivo));
             String line= null;
             
             while((line = reader.readLine())!=null){
                 String [] parts = line.split(",");
                 Player.add(parts[0]);
                 Score.add(Integer.parseInt(parts[1]));
-            }
-            
-            
+            }      
         }catch(IOException e){
             e.printStackTrace();
         }
         
         System.out.println("\tPuntajes");
         for(int i=0;i<Player.size();i++){
-            System.out.println(Player.get(i)+"\t\t"+Score.get(i));
+            System.out.println(Player.get(i)+"\t\t"+Score.get(i)+" pts.");
         }
     }
     
     public static void escritorExcel(){
+        //funcion para escribir sobre el documento de excel la informacion del jugador como el nombre y su puntaje
         try{
-            
-            BufferedWriter bw =new BufferedWriter (new FileWriter("C:\\Users\\SAT\\Desktop\\Challengue-Concurso-Preguntas-Respuestas\\preguntas.csv"));
+            BufferedWriter bw =new BufferedWriter (new FileWriter(ubicacionArchivo));
            
             for(int i=0;i<pl.size();i++){
                 bw.write(pl.get(i)+","+sc.get(i));
                 bw.newLine();
                 bw.flush();
-            }
-            
+            } 
         }catch(IOException e){
             e.printStackTrace();
         }
     
     }
     
+    
+    public static void tiempoEspera(){
+        //funcion para poner a "Dormir" el programa durante unos ms
+         try {
+            Thread.sleep(1*1000/2);
+         } catch (Exception e) {
+            System.out.println(e);
+         }
+         
+    }
+    
     public static void cargarPreguntas(){
-        
+        //funcion para cargar las preguntas del desafio 
         Preguntas q1 = new Preguntas("¿Que famoso cantante fue el líder y vocalista de la banda queen?", "Cultura General", "Freddy Mercury", "Michael Jackson", "Adam Levine", "Enrique Iglesias",true,false,false,false);
         Preguntas q2 = new Preguntas("¿Cual de las siguientes no es una cancion de Bruno Mars?","Cultura General","Leave the door Open","Levitating","Lazy Song","Just the way you are",false,true,false,false);
         Preguntas q3 = new Preguntas("¿Quien es el creador de la serie televisiva 'Los Simpons'?","Cultura General","Ernest Cline","Matt Groening","George R.R. Martin","Alex Hirsch",false, true, false, false);
@@ -135,19 +140,9 @@ public class ConcursoDePreguntas {
         }
         
     }
-    public static void tiempoEspera(){
-        
-         try {
-            //Ponemos a "Dormir" el programa durante los ms que queremos
-            Thread.sleep(1*1000/2);
-         } catch (Exception e) {
-            System.out.println(e);
-         }
-         
-    }
     
     public static void respuestaCorrInc(boolean respuesta){
-        
+        //funcion que determina si la respuesta es valida o invalida para continuar con el desafio o finalizar su turno en caso de que el usuario falle
         if(respuesta)
         {
             puntaje+=100;
@@ -159,7 +154,7 @@ public class ConcursoDePreguntas {
     }
     
     public static void generadorAleatorioPreguntas(ArrayList<Preguntas> preguntas){
-        
+        //funcion para seleccionar de acuerdo al nivel en el que se encuentre una pregunta aleatoria para su categoria
         int numeroAleatorio = (int)(Math.random()*5);
         String lineas="_";
         
@@ -173,7 +168,7 @@ public class ConcursoDePreguntas {
     }
     
     public static void pantallaSalida(Scanner res){
-        
+        //funcion que imprime por consola una pantalla de salida para el desafio
         String salir;
         
         System.out.print("\n¿Deseas Salir del Juego?(S/N):");
@@ -191,26 +186,26 @@ public class ConcursoDePreguntas {
         puntaje=0;
         
     }
+    
     public static void main(String[] args) throws IOException, InterruptedException {
-        //lectorExcel();
-        
+        //inicializacion de variables nombre jugador y la variable para leer la informacion que digite el usuario por la ventana de comandos
         String nombreJugador;
         Scanner resp = new Scanner(System.in);
-        
+        //ventana de texto inicial
         System.out.println("Bienvenido al CHALLENGE - CONCURSO DE PREGUNTAS Y RESPUESTAS\n");
         System.out.println("En este juego tu misión si decides aceptarla es avanzar lo máximo posibles a través de diferentes e intrincadas preguntas que se irán volviendo más difíciles\n"
                 +          "a medida que subas de nivel, por cada pregunta correcta que tengas se te dará un total de 100 puntos, hay un total de 5 preguntas por tanto tu puntuación\n"
                 +          "máxima podrá ser hasta de 500 puntos y una vez falles con alguna pregunta terminara el juego y te quedaras con el puntaje que lleves hasta ese momento.\n¡buena suerte!, te espero en la cima.");
         System.out.println("Ahora si Comenzemos\n");
         cargarPreguntas();
-        
+        //codigo para poder dejar el programa en un bucle hasta que el usuario decida terminar la sesion
         while(exit!=1){
+            //se solicita el nombre al jugador y se recibe la informacion mediante la consola
             System.out.print("\n\nDime, ¿Cuál es tu Nombre?: ");
             nombreJugador=resp.nextLine();
-            
+            //codigo para ejecutar cierta clase de preguntas de acuerdo al nivel en el que se encuentre el jugador (va desde 1 hasta 5 en caso de ser 6 completo el desafio por tanto finaliza el juego)
             while(contadorPreguntas<=6){
                 switch(contadorPreguntas){
-                    
                     case 1:
                         generadorAleatorioPreguntas(questionsCG);
                         break;
@@ -230,14 +225,17 @@ public class ConcursoDePreguntas {
                         System.out.println("Finalizo el Juego "+nombreJugador+" tu puntaje fue de: "+puntaje+" pts.");
                         contadorPreguntas=7;
                         break;
-                    default: 
+                    default:      
                 }
             }
+            //codigo para asociar los puntajes en una base de datos local (ArrayList) y despues transferirlos al archivo excel
             pl.add(nombreJugador);
             sc.add(puntaje);
+            //funciones finales para asociar los nombre con los puntajes en un archivo excel
             escritorExcel();
             pantallaSalida(resp); 
         }
+        //muestra en pantalla los nombres y puntajes de los diferentes jugadores
         lectorExcel();
         
     }
