@@ -23,8 +23,6 @@ public class ConcursoDePreguntas {
     //creacion de los arrays para la informacion del jugador y su puntaje
     private static ArrayList<String> Player= new ArrayList();
     private static ArrayList<Integer> Score = new ArrayList();
-    private static ArrayList<String> pl= new ArrayList();
-    private static ArrayList<Integer> sc = new ArrayList();
     
     //Creación e inicialización de variables para salida del juego y el contador de las preguntas que inicia en 1 y debe llegar hasta 5
     public static int contadorPreguntas = 1;
